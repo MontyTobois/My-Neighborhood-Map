@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import VenueMenu from './VenueMenu.js'
+import VenueMenu from './VenueMenu';
 import axios from 'axios';
 
 class App extends Component {
@@ -9,12 +9,14 @@ class App extends Component {
     this.state = {
       venues: [],
       markers: [],
-      center: []
+      query: '',
+      invisibleMarkers: [],
+      showVenues:[]
     };
   }
 
   componentDidMount() {
-    // eslint-disable-next-line no-did-mount-set-state
+    // eslint-disable-next-line //
     this.getVenues()
   }
 
@@ -54,7 +56,7 @@ class App extends Component {
     });
 
     const infoWindow = new window.google.maps.InfoWindow();
-    // eslint-disable-next-line//
+    // eslint-disable-next-line
     this.state.venues.map(myVenue => {
 
       const contentString = `${myVenue.venue.name} <br> ${myVenue.venue.location.address}`
@@ -68,7 +70,7 @@ class App extends Component {
         animation: window.google.maps.Animation.DROP,
         title: myVenue.venue.name
       });
-  //creates the toggleing effect on markers
+  //creates the toggling effect on markers
       function toggleBounce() {
           marker.setAnimation(window.google.maps.Animation.BOUNCE)
           setTimeout(function () { marker.setAnimation(null)
@@ -87,6 +89,12 @@ class App extends Component {
   render() {
     return (<main className='app'>
       <div id="map" ></div>
+    <div>
+      <VenueMenu
+      venues={this.state.venues}
+      markers ={this.state.markers}
+    />
+    </div>
     </main>);
   }
 }
