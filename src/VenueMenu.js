@@ -14,8 +14,8 @@ openMarker = locationName => {
 
 render () {
     return (
-      <Menu width={'25%'} isOpen noOverLay >
-        <div className ="listOfVenues">
+      <Menu width={'25%'}>
+        <div className = "listOfVenues">
         {this.props.venues.map(myVenue => (
           <li role = "menuitem"
             onClick={() => {
@@ -24,17 +24,16 @@ render () {
             id = {myVenue.venue.id}
             key = {myVenue.venue.id}
           >
+
             <br/>
-            <b> {myVenue.venue.name}</b>
+            <b>{myVenue.venue.name}</b>
             <br/>
             <i>{myVenue.venue.location.address}</i>
             </li>
         ))}
-          <p>
-            <i>data from foursquare</i>
-          </p>
 
         </div>
+
       </Menu>
     );
   }

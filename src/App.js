@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import VenueMenu from './VenueMenu';
 import axios from 'axios';
+import SearchField from './SearchField';
 
 class App extends Component {
   constructor() {
@@ -11,12 +12,12 @@ class App extends Component {
       markers: [],
       query: '',
       invisibleMarkers: [],
-      showVenues:[]
+      showVenues: []
     };
   }
 
   componentDidMount() {
-    // eslint-disable-next-line //
+    // eslint-disable-next-line
     this.getVenues()
   }
 
@@ -33,13 +34,13 @@ class App extends Component {
       query: 'food',
       near: 'Ocho Rios',
       v: '20180323',
-      limit: 10,
+      limit: 10
     }
     axios.get(endPoint + new URLSearchParams(parameters)).then(response => {
       this.setState({
-        venues: response.data.response.groups[0].items
+        venues: response.data.response.groups[0].items,
+        showVenues: response.data.response.groups[0].items
       }, this.renderMap())
-
     }).catch(error => {
       console.log('ERROR' + error);
     })
@@ -70,13 +71,15 @@ class App extends Component {
         animation: window.google.maps.Animation.DROP,
         title: myVenue.venue.name
       });
-  //creates the toggling effect on markers
+
+      //creates the toggling effect on markers
       function toggleBounce() {
-          marker.setAnimation(window.google.maps.Animation.BOUNCE)
-          setTimeout(function () { marker.setAnimation(null)
-          }, 1000);
-        }
-  //click event for marker set for 1 second (two bounces)
+        marker.setAnimation(window.google.maps.Animation.BOUNCE)
+        setTimeout(function() {
+          marker.setAnimation(null)
+        }, 1000);
+      }
+      //click event for marker set for 1 second (two bounces)
       marker.addListener('click', function() {
         infoWindow.setContent(contentString);
         toggleBounce();
@@ -88,13 +91,15 @@ class App extends Component {
 
   render() {
     return (<main className='app'>
-      <div id="map" ></div>
-    <div>
-      <VenueMenu
-      venues={this.state.venues}
-      markers ={this.state.markers}
-    />
-    </div>
+
+      <div id="map"></div>
+      <div id = "VenueMenu">
+        <VenueMenu venues={this.state.venues} markers={this.state.markers}/>
+      </div>
+      <div id = "SearchField">
+        <SearchField venues={this.state.showVenues} markers={this.state.markers} filteredVenues={this.filteredVenues} query={this.state.query} clearQuery={this.clearQuery} updateQuery={b => this.updateQuery(b)} clickLocation={this.clickLocation}/>
+      </div>
+
     </main>);
   }
 }

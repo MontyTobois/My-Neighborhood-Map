@@ -1,24 +1,24 @@
 #map {
+  width: 75%;
   height: 100vh;
+  float: right;
 }
 
-#container{
-  display: flex;
-  border-color: orange;
+#queryFilter {
+  width: 100%;
+  font-size: 15px;
 }
 
+#SearchField {
+  background-color: rgb(25, 176, 181);
+  height: 100vh;
+  border-radius: 330px 200px 50px 400px;
 
+}
 
-
-
-
-
-
-
-
-
-
-
+.locationFilter {
+  width: 25%;
+}
 
 /* Position and sizing of burger button */
 .bm-burger-button {
@@ -47,9 +47,11 @@
 
 /* General sidebar styles */
 .bm-menu {
-  background: black;
-  padding: 2.5em 1.5em 0;
+  background-color: rgb(62, 171, 212);
+  padding: 1.5em 1.5em 0;
   font-size: 1.15em;
+  box-shadow: 1px 1px 1px#140c0c;
+
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -59,8 +61,10 @@
 
 /* Wrapper for item list */
 .bm-item-list {
-  color: #b8b7ad;
-  padding: 0.8em;
+  color: #1d1c0c;
+  padding: 0.5em;
+  font-size: 15px;
+  list-style: none;
 }
 
 /* Individual item */
@@ -70,5 +74,5 @@
 
 /* Styling of overlay */
 .bm-overlay {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(103, 119, 24, 0.2);
 }
