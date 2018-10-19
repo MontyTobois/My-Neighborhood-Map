@@ -3,14 +3,7 @@ import { slide as Menu } from 'react-burger-menu';
 
 class VenueMenu extends Component {
 
-openMarker = locationName => {
-    // eslint-disable-next-line
-  this.props.markers.map(marker => {
-    if(marker.title === locationName){
-      window.google.maps.event.trigger(marker, "click")
-    }
-  })
-}
+
 
 render () {
     return (

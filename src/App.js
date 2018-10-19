@@ -3,10 +3,11 @@ import './App.css';
 import VenueMenu from './VenueMenu';
 import axios from 'axios';
 import SearchField from './SearchField';
+import escapeRegExp from 'escape-string-regexp';
 
 class App extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
       venues: [],
       markers: [],
@@ -89,15 +90,42 @@ class App extends Component {
     })
   }
 
+    updateQuery = query => {
+      this.setState({ query })
+      this.state.markers.map(marker => marker.setVisible(true))
+      let filteredVenues
+      let invisibleMarkers
+
+      if (query) {
+      const pairUp = new RegExp(escapeRegExp(query), "i")
+      filteredVenues = this.state.venues.filter(myVenue =>
+        pairUp.test(myVenue.venue.name)
+      )
+      this.setState({ venues: filteredVenues })
+      invisibleMarkers = this.state.markers.filter(marker =>
+        filteredVenues.every(myVenue => myVenue.venue.name !== marker.title)
+      )
+
+
+      invisibleMarkers.forEach(marker => marker.setVisible(false))
+
+      this.setState({ invisibleMarkers })
+
+    } else {
+      this.setState({ venues: this.state.showVenues })
+      this.state.markers.forEach(marker => marker.setVisible(true))
+    }
+  }
+
   render() {
     return (<main className='app'>
 
       <div id="map"></div>
-      <div id = "VenueMenu">
+      <div id="VenueMenu">
         <VenueMenu venues={this.state.venues} markers={this.state.markers}/>
       </div>
-      <div id = "SearchField">
-        <SearchField venues={this.state.showVenues} markers={this.state.markers} filteredVenues={this.filteredVenues} query={this.state.query} clearQuery={this.clearQuery} updateQuery={b => this.updateQuery(b)} clickLocation={this.clickLocation}/>
+      <div id="SearchField">
+        <SearchField venues={this.props.showVenues} markers={this.props.markers} filteredVenues={this.filteredVenues} query={this.props.query} clearQuery={this.clearQuery} updateQuery={e => this.updateQuery(e)} clickLocation={this.clickLocation}/>
       </div>
 
     </main>);

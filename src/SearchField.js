@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-class SearchField extends Component {
+class Search extends Component {
 
   render() {
     return (
-      <div className = 'locationFilter'>
+      <div className = 'locationFilter' >
         <input
           type ='text'
           id = 'queryFilter'
@@ -12,8 +12,9 @@ class SearchField extends Component {
           value = {this.props.query}
           onChange = {event => this.props.updateQuery(event.target.value)}
         />
+
       </div>);
   }
 }
 
-export default SearchField;
+export default Search;
