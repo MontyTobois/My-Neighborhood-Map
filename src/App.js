@@ -130,6 +130,8 @@ class App extends Component {
         venues={this.state.venues}
         markers={this.state.markers}
       />
+
+
     </main>);
   }
 }

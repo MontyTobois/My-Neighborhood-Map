@@ -7,7 +7,9 @@
 #queryFilter {
   width: 50%;
   font-size: 15px;
-
+  margin: 0 auto;
+  display: block;
+  text-align: center;
 }
 
 .banner {
@@ -20,7 +22,7 @@
   width: 100%;
   align-content: center;
   padding: 10px;
-  background-color: rgb(56, 63, 180);
+  background-color: rgb(90, 227, 149);
 }
 
 /* Position and sizing of burger button */
@@ -28,7 +30,7 @@
   position: fixed;
   width: 36px;
   height: 30px;
-  left: 55px;
+  left: 35px;
   top: 150px;
 }
 
@@ -50,10 +52,9 @@
 
 /* General sidebar styles */
 .bm-menu {
-  background-color: rgb(62, 171, 212);
+  background-color: rgb(126, 129, 142);
   padding: 1.5em 1.5em 0;
   font-size: 1.15em;
-  box-shadow: 1px 1px 1px#140c0c;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -64,8 +65,8 @@
 /* Wrapper for item list */
 .bm-item-list {
   color: #1d1c0c;
-  padding: 0.5em;
-  font-size: 15px;
+  padding: 1px;
+  font-size: 14px;
   list-style: none;
 }
 
