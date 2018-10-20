@@ -4,6 +4,7 @@ import VenueMenu from './VenueMenu';
 import axios from 'axios';
 import SearchField from './SearchField';
 import escapeRegExp from 'escape-string-regexp';
+import Banner from './Banner'
 
 class App extends Component {
   constructor() {
@@ -90,44 +91,45 @@ class App extends Component {
     })
   }
 
-    updateQuery = query => {
-      this.setState({ query })
-      this.state.markers.map(marker => marker.setVisible(true))
-      let filteredVenues
-      let invisibleMarkers
+  updateQuery = query => {
+    this.setState({query})
+    this.state.markers.map(marker => marker.setVisible(true))
+    let filteredVenues
+    let invisibleMarkers
 
-      if (query) {
+    if (query) {
       const pairUp = new RegExp(escapeRegExp(query), "i")
-      filteredVenues = this.state.venues.filter(myVenue =>
-        pairUp.test(myVenue.venue.name)
-      )
-      this.setState({ venues: filteredVenues })
-      invisibleMarkers = this.state.markers.filter(marker =>
-        filteredVenues.every(myVenue => myVenue.venue.name !== marker.title)
-      )
-
+      filteredVenues = this.state.venues.filter(myVenue => pairUp.test(myVenue.venue.name))
+      this.setState({venues: filteredVenues})
+      invisibleMarkers = this.state.markers.filter(marker => filteredVenues.every(myVenue => myVenue.venue.name !== marker.title))
 
       invisibleMarkers.forEach(marker => marker.setVisible(false))
 
-      this.setState({ invisibleMarkers })
+      this.setState({invisibleMarkers})
 
     } else {
-      this.setState({ venues: this.state.showVenues })
+      this.setState({venues: this.state.showVenues})
       this.state.markers.forEach(marker => marker.setVisible(true))
     }
   }
 
   render() {
     return (<main className='app'>
-
+      <Banner/>
+      <SearchField
+        venues={this.props.showVenues}
+        markers={this.props.markers}
+        filteredVenues={this.filteredVenues}
+        query={this.props.query}
+        clearQuery={this.clearQuery}
+        updateQuery={e => this.updateQuery(e)} clickLocation={this.clickLocation}
+      />
       <div id="map"></div>
-      <div id="VenueMenu">
-        <VenueMenu venues={this.state.venues} markers={this.state.markers}/>
-      </div>
-      <div id="SearchField">
-        <SearchField venues={this.props.showVenues} markers={this.props.markers} filteredVenues={this.filteredVenues} query={this.props.query} clearQuery={this.clearQuery} updateQuery={e => this.updateQuery(e)} clickLocation={this.clickLocation}/>
-      </div>
 
+      <VenueMenu
+        venues={this.state.venues}
+        markers={this.state.markers}
+      />
     </main>);
   }
 }

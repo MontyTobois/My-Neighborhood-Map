@@ -12,7 +12,6 @@ class Search extends Component {
           value = {this.props.query}
           onChange = {event => this.props.updateQuery(event.target.value)}
         />
-
       </div>);
   }
 }

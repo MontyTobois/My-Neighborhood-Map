@@ -8,7 +8,7 @@ class VenueMenu extends Component {
 render () {
     return (
       <Menu width={'25%'}>
-        <div className = "listOfVenues">
+        <div id = "listOfVenues">
         {this.props.venues.map(myVenue => (
           <li role = "menuitem"
             onClick={() => {

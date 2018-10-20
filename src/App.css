@@ -5,19 +5,22 @@
 }
 
 #queryFilter {
-  width: 100%;
+  width: 50%;
   font-size: 15px;
+
 }
 
-#SearchField {
-  background-color: rgb(25, 176, 181);
-  height: 100vh;
-  border-radius: 330px 200px 50px 400px;
-
+.banner {
+  text-align: center;
+  background-color: rgb(90, 227, 149);
+  padding: 25px;
 }
 
 .locationFilter {
-  width: 25%;
+  width: 100%;
+  align-content: center;
+  padding: 10px;
+  background-color: rgb(56, 63, 180);
 }
 
 /* Position and sizing of burger button */
@@ -25,8 +28,8 @@
   position: fixed;
   width: 36px;
   height: 30px;
-  left: 36px;
-  top: 36px;
+  left: 55px;
+  top: 150px;
 }
 
 /* Color/shape of burger icon bars */
@@ -51,7 +54,6 @@
   padding: 1.5em 1.5em 0;
   font-size: 1.15em;
   box-shadow: 1px 1px 1px#140c0c;
-
 }
 
 /* Morph shape necessary with bubble or elastic */
