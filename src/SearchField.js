@@ -8,7 +8,9 @@ class Search extends Component {
         <input
           type ='text'
           id = 'queryFilter'
+          autofocus
           placeholder = 'Food and Drinks Here!'
+          aria-label= 'locations filter'
           value = {this.props.query}
           onChange = {event => this.props.updateQuery(event.target.value)}
         />

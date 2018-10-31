@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 class Banner extends Component {
 
   render() {
-    return (<div className='banner'>
+    return (<div className='banner' aria-label = "Heading" tabindex = '0'>
       Search the Islands best Locations!
     </div>)
 

@@ -7,8 +7,8 @@ import escapeRegExp from 'escape-string-regexp';
 import Banner from './Banner'
 
 class App extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       venues: [],
       markers: [],
@@ -18,16 +18,20 @@ class App extends Component {
     };
   }
 
+  //calls the info from axios one time
   componentDidMount() {
     // eslint-disable-next-line
     this.getVenues()
   }
 
+//Brings the map to life with api key, will need to use your own
   renderMap = () => {
     loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCt-wcz37sl15ti-UayWIezrLp30d46YY8&callback=initMap')
     window.initMap = this.initMap
   }
 
+//get venues data from foursquare api using axios
+//based on jamaica locations
   getVenues = () => {
     const endPoint = 'https://api.foursquare.com/v2/venues/explore?'
     const parameters = {
@@ -58,29 +62,34 @@ class App extends Component {
       zoom: 14
     });
 
+   //creats the infowindow for the marker that is selected
     const infoWindow = new window.google.maps.InfoWindow();
     // eslint-disable-next-line
     this.state.venues.map(myVenue => {
 
-      const contentString = `${myVenue.venue.name} <br> ${myVenue.venue.location.address}`
+   //grabs the name and location
+    const contentString = `${myVenue.venue.name} <br/> ${myVenue.venue.location.address}`
+
       // creates markers
-      const marker = new window.google.maps.Marker({
-        position: {
-          lat: myVenue.venue.location.lat,
-          lng: myVenue.venue.location.lng
-        },
+    const marker = new window.google.maps.Marker({
+      position: {
+        lat: myVenue.venue.location.lat,
+        lng: myVenue.venue.location.lng
+      },
         map: map,
         animation: window.google.maps.Animation.DROP,
-        title: myVenue.venue.name
-      });
+        title: myVenue.venue.name,
+      })
+        this.state.markers.push(marker)
 
-      //creates the toggling effect on markers
+      //creates the bounce effect on the markers
       function toggleBounce() {
         marker.setAnimation(window.google.maps.Animation.BOUNCE)
         setTimeout(function() {
           marker.setAnimation(null)
         }, 1000);
       }
+
       //click event for marker set for 1 second (two bounces)
       marker.addListener('click', function() {
         infoWindow.setContent(contentString);
@@ -91,22 +100,27 @@ class App extends Component {
     })
   }
 
+ /*Based on the search you enter a marker(s) will render to the map and
+  those that don't fit the criteria will be removed*/
   updateQuery = query => {
     this.setState({query})
     this.state.markers.map(marker => marker.setVisible(true))
-    let filteredVenues
+    let filterVenues
     let invisibleMarkers
 
     if (query) {
       const pairUp = new RegExp(escapeRegExp(query), "i")
-      filteredVenues = this.state.venues.filter(myVenue => pairUp.test(myVenue.venue.name))
-      this.setState({venues: filteredVenues})
-      invisibleMarkers = this.state.markers.filter(marker => filteredVenues.every(myVenue => myVenue.venue.name !== marker.title))
+      filterVenues = this.state.venues.filter(myVenue =>
+        pairUp.test(myVenue.venue.name)
+      )
+      this.setState({venues: filterVenues})
+      invisibleMarkers = this.state.markers.filter(marker =>
+        filterVenues.every(myVenue => myVenue.venue.name !== marker.title)
+      )
 
       invisibleMarkers.forEach(marker => marker.setVisible(false))
 
       this.setState({invisibleMarkers})
-
     } else {
       this.setState({venues: this.state.showVenues})
       this.state.markers.forEach(marker => marker.setVisible(true))
@@ -114,23 +128,26 @@ class App extends Component {
   }
 
   render() {
-    return (<main className='app'>
+    return (<main className='app' >
       <Banner/>
       <SearchField
-        venues={this.props.showVenues}
-        markers={this.props.markers}
-        filteredVenues={this.filteredVenues}
-        query={this.props.query}
+        venues={this.state.venues}
+        markers={this.state.markers}
+        filterdVenues={this.filterdVenues}
+        query={this.state.query}
         clearQuery={this.clearQuery}
-        updateQuery={e => this.updateQuery(e)} clickLocation={this.clickLocation}
+        updateQuery={e => this.updateQuery(e)}
+        clickLocation={this.clickLocation}
+        aria-label= 'SearchField'
       />
+
       <div id="map"></div>
 
       <VenueMenu
         venues={this.state.venues}
         markers={this.state.markers}
+        aria-label = 'VenueMenu'
       />
-
 
     </main>);
   }
