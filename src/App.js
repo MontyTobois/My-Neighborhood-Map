@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import './App.css';
 import VenueMenu from './VenueMenu';
 import axios from 'axios';
+import ErrorBoundary from './ErrorBoundary'
 import SearchField from './SearchField';
 import escapeRegExp from 'escape-string-regexp';
 import Banner from './Banner'
+
 
 class App extends Component {
   constructor(props) {
@@ -26,7 +28,7 @@ class App extends Component {
 
 //Brings the map to life with api key, will need to use your own
   renderMap = () => {
-    loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCt-wcz37sl15ti-UayWIezrLp30d46YY8&callback=initMap')
+    loadScript('xxxxxxxx')
     window.initMap = this.initMap
   }
 
@@ -37,11 +39,16 @@ class App extends Component {
     const parameters = {
       client_id: 'HDWHBLKEKEJNYTSHBPANCM3FNFL0GXGDVXO3TFBZKJJYV24V',
       client_secret: 'W2ADHU5C0LFN20QPE2CHAXC2K03O4WW2SPASYEXSTVWWDMTC',
-      query: 'food',
+      query: 'resort',
       near: 'Ocho Rios',
       v: '20180323',
-      limit: 10
+      limit: 7
     }
+
+    /*Like the FETCH API - using axios for the same goal.
+    Placed this.renderMap() here instead of componentDidMount(),
+    since the call is asynchronous, map won't get markers unless this.renderMap()
+    is called after the repsonse */
     axios.get(endPoint + new URLSearchParams(parameters)).then(response => {
       this.setState({
         venues: response.data.response.groups[0].items,
@@ -117,7 +124,9 @@ class App extends Component {
       invisibleMarkers = this.state.markers.filter(marker =>
         filterVenues.every(myVenue => myVenue.venue.name !== marker.title)
       )
-
+      /*
+       * Hiding the markers for venues not included in the filtered venues
+      */
       invisibleMarkers.forEach(marker => marker.setVisible(false))
 
       this.setState({invisibleMarkers})
@@ -128,30 +137,40 @@ class App extends Component {
   }
 
   render() {
-    return (<main className='app' >
-      <Banner/>
-      <SearchField
-        venues={this.state.venues}
-        markers={this.state.markers}
-        filterdVenues={this.filterdVenues}
-        query={this.state.query}
-        clearQuery={this.clearQuery}
-        updateQuery={e => this.updateQuery(e)}
-        clickLocation={this.clickLocation}
-        aria-label= 'SearchField'
-      />
+    if (this.state.hasError) {
+      return <div id ='error-message' aria-label= 'Error message'>Sorry, something went wrong!</div>
+    }else{
+      return (
+        <main className='app' >
+        <ErrorBoundary>
+          <div aria-label='Banner'>
+            <Banner/ >
+          </div>
+          <SearchField aria-label='Search Bar'
+          venues={this.state.venues}
+          markers={this.state.markers}
+          filterdVenues={this.filterdVenues}
+          query={this.state.query}
+          clearQuery={this.clearQuery}
+          updateQuery={e => this.updateQuery(e)}
+          clickLocation={this.clickLocation}
+        // eslint-disable-next-line
+        aria-label = 'SearchField'
+          />
 
-      <div id="map"></div>
-
-      <VenueMenu
-        venues={this.state.venues}
-        markers={this.state.markers}
+          <VenueMenu aria-label='Mene Container'
+          venues={this.state.venues}
+          markers={this.state.markers}
+        // eslint-disable-next-line
         aria-label = 'VenueMenu'
-      />
-
+          />
+          <div id="map" aria-label='Map' role='application'></div>
+          </ErrorBoundary>
     </main>);
+    }
   }
 }
+
 
 function loadScript(url) {
   const index = window.document.getElementsByTagName('script')[0]
@@ -161,5 +180,7 @@ function loadScript(url) {
   script.defer = true
   index.parentNode.insertBefore(script, index)
 }
+
+
 
 export default App;

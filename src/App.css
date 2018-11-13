@@ -10,12 +10,11 @@
   margin: 0 auto;
   display: block;
   text-align: center;
-  cursor: pointer;
 }
 
 .banner {
   text-align: center;
-  background-color: rgb(90, 227, 149);
+  background-color: #15d228;
   padding: 25px;
 }
 
@@ -23,7 +22,8 @@
   width: 100%;
   align-content: center;
   padding: 10px;
-  background-color: rgb(90, 227, 149);
+  background-color: #15d228;
+  overflow: ;
 }
 
 /* Position and sizing of burger button */
@@ -31,8 +31,8 @@
   position: fixed;
   width: 36px;
   height: 30px;
-  left: 35px;
-  top: 150px;
+  left: 36px;
+  top: 36px;
 }
 
 /* Color/shape of burger icon bars */
@@ -53,10 +53,12 @@
 
 /* General sidebar styles */
 .bm-menu {
-  background-color: rgb(126, 129, 142);
-  padding: 1.5em 1.5em 0;
-  font-size: 1.15em;
-  
+  background: #373a47;
+  padding: 2.5em 1.5em 0;
+  font-size: 13px;
+  text-align: center;
+  list-style: none;
+  cursor: pointer;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -66,23 +68,16 @@
 
 /* Wrapper for item list */
 .bm-item-list {
-  color: #1d1c0c;
-  margin: 10px;
-  font-size: 15px;
-  list-style: none;
-
+  color: #b8b7ad;
+  padding: 0.8em;
 }
 
 /* Individual item */
 .bm-item {
-  cursor: pointer;
-  text-align: center;
-  padding: inherit;
-  border: hidden;
-  border-radius: 1px 1px 1px 1px;
+  display: inline-block;
 }
 
 /* Styling of overlay */
 .bm-overlay {
-  background: rgba(103, 119, 24, 0.2);
+  background: rgba(0, 0, 0, 0.3);
 }

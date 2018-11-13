@@ -17,7 +17,7 @@ openMarker = locationName => {
 render () {
     return (
       <Menu width={'25%'} isOpen noOverlay>
-        <div className = "listOfVenues" >
+        <div className = "listOfVenues" aria-label='List of Venues'>
         {this.props.venues.map(myVenue => (
           <li role = "menuitem"
             onClick={() => {
@@ -34,9 +34,7 @@ render () {
             <i>{myVenue.venue.location.address}</i>
             </li>
         ))}
-
         </div>
-
       </Menu>
     );
   }

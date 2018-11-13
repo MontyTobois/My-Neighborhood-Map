@@ -4,12 +4,11 @@ class Search extends Component {
 
   render() {
     return (
-      <div className = 'locationFilter' >
+      <div className = 'locationFilter' role= "application">
         <input
           type ='text'
           id = 'queryFilter'
-          autofocus
-          placeholder = 'Food and Drinks Here!'
+          placeholder = 'Enjoy yourself at these amazing Resorts!'
           aria-label= 'locations filter'
           value = {this.props.query}
           onChange = {event => this.props.updateQuery(event.target.value)}
