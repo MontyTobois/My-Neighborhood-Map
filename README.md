@@ -5,9 +5,9 @@
 * [Overview](#Overview)
 * [Instructions](#Instructions)
 * [Language](#Language)
-* [Important](#Important)
-* [Resources](#Resources)
 * [Credits](#Credits)
+* [Resources](#Resources)
+
 
 
 ## Overview
@@ -30,17 +30,6 @@ In this project, I created a Google map app that allow the user to find amazing 
 
 This project is built with **HTML, CSS, JAVASCRIPT (ES6).**
 
-## Important
-
-Please note that the backend server -against which the web app was developped- was provided by Udacity. The provided file BooksAPI.js contains the methods I used to perform necessary operations on the backend:
-
-* getAll
-* update
-* search
-For more information on how these methods are used exactly, please refer to the original Udacity repository.
-
-
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
 
 ## Credits
 
