@@ -25,6 +25,8 @@ In this project, I created a Google map app that allow the user to find amazing 
 
 * start the development server with `npm start`
 
+* you will need your own API KEY for Map
+
 
 ## Language
 
