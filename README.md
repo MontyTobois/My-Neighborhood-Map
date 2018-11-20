@@ -21,11 +21,11 @@ In this project, I created a Google map app that allow the user to find amazing 
 
 * Clone this repo to your terminal or download the zip
 
-* install all project dependencies with
+* Install all project dependencies with `npm install`
 
-* start the development server with `npm start`
+* Start the development server with `npm start`
 
-* you will need your own API KEY for Map
+* You will need your own API KEY for Map
 
 
 ## Language
