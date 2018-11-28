@@ -8,7 +8,7 @@
 * [Credits](#Credits)
 * [Resources](#Resources)
 
-
+[Demo](https://my-google-map.herokuapp.com/)
 
 ## Overview
 In this project, I created a Google map app that allow the user to find amazing resorts. The map contains a venue list of the resorts you can travel to and markers to pin-point your destination. Enjoy !!!
